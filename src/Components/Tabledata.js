@@ -21,7 +21,7 @@ const TableData = () => {
  
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:5000/length");
+    const res = await axios.get("https://dashboardbackend-nine.vercel.app/length");
     const totalItems=(parseInt(res.data.length));
 
     const pages = parseInt(totalItems / 10) + ((totalItems % 10)>0);
@@ -32,7 +32,7 @@ const TableData = () => {
 
 
 
-    const data = await fetch(`http://localhost:5000/item/${page}`);
+    const data = await fetch(`https://dashboardbackend-nine.vercel.app/item/${page}`);
 
     const json = await data.json();
     setData(json);
@@ -56,7 +56,7 @@ const TableData = () => {
       status: status,
     };
     axios
-      .put(`http://localhost:5000/item`, order)
+      .put(`https://dashboardbackend-nine.vercel.app/item`, order)
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
         
@@ -70,7 +70,7 @@ const TableData = () => {
 
   const handleDelete = (trackingId) => {
     axios
-      .delete(`http://localhost:5000/item/${trackingId}`)
+      .delete(`https://dashboardbackend-nine.vercel.app/item/${trackingId}`)
       .catch((err) => console.log(err));
     window.location.reload();
 

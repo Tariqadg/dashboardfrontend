@@ -35,7 +35,7 @@ const Form = () => {
     event.preventDefault();
     const trackingId = generatetrackingid()
     const order={trackingId:trackingId,product:product,customer:customer,date:date,amount:amount,paymentMode:paymentMode,status:status}
-    axios.post("http://localhost:5000/item",order)
+    axios.post("https://dashboardbackend-nine.vercel.app/item",order)
     .then(res=>{if (res.status === 200 || res.status === 201) { 
       window.location.reload()
       
