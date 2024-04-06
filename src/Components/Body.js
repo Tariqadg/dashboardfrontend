@@ -20,7 +20,6 @@ const Body = () => {
     top-[-106px]
     left-[1032px]
     gap-[0px]
-    opacity-[0px] 
     
     "
     >
