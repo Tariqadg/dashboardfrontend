@@ -3,7 +3,7 @@ import { LuTrash2 } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
 import axios from "axios";
 import { ButtonGroup } from "@mui/material";
-import  _  from 'lodash';
+import _ from "lodash";
 const TableData = () => {
   const [data, setData] = useState();
   const [update, setUpdate] = useState(false);
@@ -15,38 +15,32 @@ const TableData = () => {
   const [activerow, setActiveRow] = useState();
   const [page, setPage] = useState(1);
   const [totalpages, settotalpages] = useState(1);
-  const [pagearray,setPagearray]=useState([])
- 
-
- 
+  const [pagearray, setPagearray] = useState([]);
 
   const fetchData = async () => {
-    const res = await axios.get("https://dashboardbackend-nine.vercel.app/length");
-    const totalItems=(parseInt(res.data.length));
+    const res = await axios.get(
+      "https://dashboardbackend-nine.vercel.app/length"
+    );
+    const totalItems = parseInt(res.data.length);
 
-    const pages = parseInt(totalItems / 10) + ((totalItems % 10)>0);
+    const pages = parseInt(totalItems / 10) + (totalItems % 10 > 0);
     settotalpages(pages);
-    const pg= _.range(1, pages+1 )
+    const pg = _.range(1, pages + 1);
     setPagearray(pg);
-    
 
-
-
-    const data = await fetch(`https://dashboardbackend-nine.vercel.app/item/${page}`);
+    const data = await fetch(
+      `https://dashboardbackend-nine.vercel.app/item/${page}`
+    );
 
     const json = await data.json();
     setData(json);
   };
   useEffect(() => {
-
     fetchData();
     // eslint-disable-next-line
   }, [page]);
 
-  
-
   const handleUpdate = (trackingId) => {
-    
     const order = {
       trackingId: trackingId,
       customer: customer,
@@ -59,13 +53,12 @@ const TableData = () => {
       .put(`https://dashboardbackend-nine.vercel.app/item`, order)
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
-        
           window.location.reload();
         } else {
           console.error("API request unsuccessful:", res);
         }
       })
-      .catch((er) => (er));
+      .catch((er) => er);
   };
 
   const handleDelete = (trackingId) => {
@@ -73,12 +66,12 @@ const TableData = () => {
       .delete(`https://dashboardbackend-nine.vercel.app/item/${trackingId}`)
       .catch((err) => console.log(err));
     window.location.reload();
-
   };
   const handleUpdateclick = (trackingId) => {
     setActiveRow(trackingId);
     setUpdate(true);
   };
+  
 
   return (
     <>
@@ -90,10 +83,7 @@ const TableData = () => {
               <th className="">Product</th>
               <th className="m-[4px]">Customer</th>
               <th className="m-[4px]">Date</th>
-              <th className="m-[4px]">
-                Amount
-                
-              </th>
+              <th className="m-[4px]">Amount</th>
 
               <th className="m-[4px]">payment Mode</th>
               <th className="m-[4px]">Status</th>
@@ -105,9 +95,7 @@ const TableData = () => {
               return (
                 <tr
                   key={index}
-                  className={`   ${
-                    index % 2 === 0 && "bg-gray-100"
-                  }`}
+                  className={`   ${index % 2 === 0 && "bg-gray-100"}`}
                 >
                   <td className="text-center py-4 ">{item.trackingId}</td>
                   <td className="text-center py-4">{item.product}</td>
@@ -123,13 +111,12 @@ const TableData = () => {
                       item.customer
                     )}
                   </td>
-                  <td className="text-center py-4 " >
+                  <td className="text-center py-4 ">
                     {update && activerow === item.trackingId ? (
                       <input
                         className=" "
                         type="date"
                         placeholder="Date"
-
                         onChange={(e) => setDate(e.target.value)}
                       />
                     ) : (
@@ -227,18 +214,36 @@ const TableData = () => {
           </tbody>
         </table>
         <div className="flex w-full flex-row justify-between items-end mx-2 py-2 pr-2">
+          <div></div>
           <div>
-            
-          </div>
-          <div>
-          <button className="p-2 mr-2 border-gray-100  opacity-50" onClick={()=>page>1 && setPage(prev=>prev-1)}>prev</button>
-          <ButtonGroup sx={{mr:"1em"}} size="large" aria-label="Small button group">
-    
-          {pagearray.map((pageNumber, index) => (
-  <button className="p-2  border-gray-100 bg-gray-100" onClick={()=>setPage(pageNumber)} key={index} value={pageNumber}>{pageNumber}</button>
-))}
-          </ButtonGroup>
-          <button  className="p-2 mr-2 border-gray-100  opacity-50" onClick={()=>page<totalpages && setPage(prev=>prev+1)}>next</button>
+            <button
+              className="p-2 mr-2 border-gray-100  opacity-50"
+              onClick={() => page > 1 && setPage((prev) => prev - 1)}
+            >
+              prev
+            </button>
+            <ButtonGroup
+              sx={{ mr: "1em" }}
+              size="large"
+              aria-label="Small button group"
+            >
+              {pagearray.map((pageNumber, index) => (
+                <button
+                  className="p-2  border-gray-100 bg-gray-100"
+                  onClick={() => setPage(pageNumber)}
+                  key={index}
+                  value={pageNumber}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+            </ButtonGroup>
+            <button
+              className="p-2 mr-2 border-gray-100  opacity-50"
+              onClick={() => page < totalpages && setPage((prev) => prev + 1)}
+            >
+              next
+            </button>
           </div>
         </div>
       </div>

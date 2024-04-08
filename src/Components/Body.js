@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Dashboard from "./Dashboard";
-import Drawer from "./Drawer";
-import Form from "./Form";
+
 import Navbar from "./Navbar";
 import Table from "./Table";
 <link
@@ -10,28 +9,13 @@ import Table from "./Table";
 ></link>;
 
 const Body = () => {
-  // const[Value,setValue]=useState(false)
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div
-      className="flex w-[1440px];
-    h-[1024px]
-    top-[-106px]
-    left-[1032px]
-    gap-[0px]
-    
-    "
+    <div className="flex w-[1440px] h-[1024px] top-[-106px] left-[1032px]"
     >
       <Dashboard />
       <div>
         <Navbar />
-
-        <Table setIsOpen={setIsOpen} />
-
-        <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-         <Form/>
-        </Drawer>
+        <Table />
       </div>
     </div>
   );
