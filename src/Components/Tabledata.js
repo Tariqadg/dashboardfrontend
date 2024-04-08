@@ -72,26 +72,72 @@ const TableData = () => {
     setUpdate(true);
   };
   
+  const [sortField, setSortField] = useState(null); 
+  const [sortOrder, setSortOrder] = useState('asc'); 
+ 
+
+  const handleSort = (field) => {
+    if (field === sortField) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc'); 
+    } else {
+      setSortField(field);
+      setSortOrder('asc'); 
+    }
+  };
+
+  const sortData = (data, field, order) => {
+    return data?.sort((a, b) => {
+      const sortValueA = a[field];
+      const sortValueB = b[field];
+
+      if (sortValueA === null) return 1;
+      if (sortValueB === null) return -1;
+
+      if (typeof sortValueA === 'string' && typeof sortValueB === 'string') {
+        return sortValueA?.localeCompare(sortValueB, undefined, { numeric: true }) * (order === 'asc' ? 1 : -1);
+      } else if (typeof sortValueA === 'number' && typeof sortValueB === 'number') {
+        return (sortValueA - sortValueB) * (order === 'asc' ? 1 : -1);
+      } else {
+        return (sortValueA > sortValueB ? 1 : -1) * (order === 'asc' ? 1 : -1);
+      }
+    });
+  };
+
+   sortData(data, sortField, sortOrder);
+  
 
   return (
     <>
-      <div className="w-[1240px] py-8 h-[689px] flex flex-col  justify-center ">
+      <div className="w-[1240px] py-8 h-[689px] flex flex-col  justify-center fixed ">
         <table className="border-collapse p-4 w-full  border  ">
-          <thead className="">
-            <tr className="border-t-3 border-b-3 border-r-3 border-l-3  font-extrabold">
-              <th className="p-8">Tracking id</th>
-              <th className="">Product</th>
-              <th className="m-[4px]">Customer</th>
-              <th className="m-[4px]">Date</th>
-              <th className="m-[4px]">Amount</th>
-
-              <th className="m-[4px]">payment Mode</th>
-              <th className="m-[4px]">Status</th>
-              <th className="m-[4px]">Action</th>
-            </tr>
-          </thead>
+        <thead>
+          <tr className="border-t-3 border-b-3 border-r-3 border-l-3 font-extrabold">
+            <th className="p-8" onClick={() => handleSort('trackingId')}>
+              Tracking id {sortField === 'trackingId' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="" onClick={() => handleSort('product')}>
+              Product {sortField === 'product' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="m-[4px]" onClick={() => handleSort('customer')}>
+              Customer {sortField === 'customer' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="m-[4px]" onClick={() => handleSort('date')}>
+              Date {sortField === 'date' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="m-[4px]" onClick={() => handleSort('amount')}>
+              Amount {sortField === 'amount' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="m-[4px]" onClick={() => handleSort('paymentMode')}>
+              Payment Mode {sortField === 'paymentMode' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="m-[4px]" onClick={() => handleSort('status')}>
+              Status {sortField === 'status' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            </th>
+            <th className="m-[4px]">Action</th>
+          </tr>
+        </thead>
           <tbody className="">
-            {data?.map((item, index) => {
+          {data?.map((item, index) => {  
               return (
                 <tr
                   key={index}
