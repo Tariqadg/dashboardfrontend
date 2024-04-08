@@ -10,7 +10,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 
 const Dashboard = () => {
   return (
-    <div className="w-[86px] h-[1024] bg-black rounded-r-2xl  ">
+    <div className="w-[96px] h-[1024px] bg-black rounded-r-2xl  ">
       <div className="w-[36px] h-[36px ] top-[40px] left-[30px] m-auto mt-3  rounded-full">
         <img
           className="bg-white rounded-full text-white"
