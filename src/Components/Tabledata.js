@@ -108,7 +108,7 @@ const TableData = () => {
 
   return (
     <>
-      <div className="w-[1240px] py-8 h-[689px] flex flex-col  justify-center fixed ">
+      <div className="w-[1240px] py-8 h-[689px] flex flex-col  justify-center  ">
         <table className="border-collapse p-4 w-full  border  ">
         <thead>
           <tr className="border-t-3 border-b-3 border-r-3 border-l-3 font-extrabold">
