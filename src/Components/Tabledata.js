@@ -261,12 +261,12 @@ const TableData = () => {
         </table>
         <div className="flex w-full flex-row justify-between items-end mx-2 py-2 pr-2">
           <div></div>
-          <div>
+          <div className="p-4">
             <button
-              className="p-2 mr-2 border-gray-100  opacity-50"
+              className=" m-1 rounded-lg border-gray-100  opacity-50 w-[53px] h-[15px] hover:bg-black hover:text-white"
               onClick={() => page > 1 && setPage((prev) => prev - 1)}
             >
-              prev
+              Previous
             </button>
             <ButtonGroup
               sx={{ mr: "1em" }}
@@ -275,7 +275,7 @@ const TableData = () => {
             >
               {pagearray.map((pageNumber, index) => (
                 <button
-                  className="p-2  border-gray-100 bg-gray-100"
+                  className={`py-2 m-1 px-[9px] border-gray-100 bg-gray-100 rounded-lg  `}
                   onClick={() => setPage(pageNumber)}
                   key={index}
                   value={pageNumber}
@@ -285,10 +285,10 @@ const TableData = () => {
               ))}
             </ButtonGroup>
             <button
-              className="p-2 mr-2 border-gray-100  opacity-50"
+              className=" m-1 rounded-lg  border-gray-100  w-[29px] h-[15px] opacity-50  hover:bg-black hover:text-white "
               onClick={() => page < totalpages && setPage((prev) => prev + 1)}
             >
-              next
+              Next
             </button>
           </div>
         </div>
